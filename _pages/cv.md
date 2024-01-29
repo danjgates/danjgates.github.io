@@ -11,30 +11,39 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+* B.S. in Natural Resources -- Ecology -- and Management, Iowa State, 2007
+* M.S. in Ecology and Evolution, Iowa State, 2009
+* Ph.D in Evolutionary Genetics, University of Nebraska-Lincoln, 2016
 
-Work experience
+Work experience and deliverables
 ======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* 2020-2023: Bioinformatics Lead, Checkerspot Inc.
+  * Assembled and annotated a microbial (algal) genome into two chromosome scale, phased haploid genomes
+  * Built custom nextflow pipelines to leverage AWS batch cloud computing resources to conduct comparative transcriptomics, differential expression analyses, genome assembly and resequencing, and annotation and functional prediction
+
+* 2016-2020: Postdoc in Plant Adaptation and Evolution, UC-Davis
+  * Conceived of and carried out population genetic association tests to identify candidate adaptation genes in maize landraces
+  * Coordinated collaboration between researchers at six different institutions in order to validate candidate adaptation genes with data from RNA-sequencing, chromatin accessibility, phospholipid variation between environments, and trait performance in drought and heat experiments.
+
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* General Computational Biology
+  * Unix
+  * R
+  * Python
+  * git
+  * Nextflow
+  * AWS
+  * HPC (SLURM)
+* General Communications and Teamwork
+  * MS Excel/Numbers/gSheets
+  * Powerpoint/gSlides
+  * MS Word/gDocs
+  * LaTeX
+  * Jupyter notebooks
+  * Google colab
 
 Publications
 ======
@@ -42,18 +51,3 @@ Publications
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Talks
-======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
