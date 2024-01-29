@@ -41,7 +41,9 @@ It may seem a bit tedious to track the parameter through all the inputs and outp
 Ok so what does explicating the naming entail?
 We can start by renaming the output of the first script to be `${params.input}.metadata` instead of tomat.metadata
 So now our completed script for the pullNCBI process looks like:
+```
 datasets summary genome accession '${params.input}' > ${params.input}.metadata
+```
 
 This means that our output statement for the pullNCBI process is no longer valid so we then change that to:
 
