@@ -1,7 +1,7 @@
 ---
-title: 'Pipeline 0-to-Cloud (Introduction to Nextflow)'
+title: '3.)Pipeline 0-to-Cloud (Pipeline flexibility)'
 date: 2024-01-29
-permalink: /posts/2024/01/Nextflow-Intro/
+permalink: /posts/2024/01/Pipeline-flex/
 tags:
   - Pipeline
   - Nextflow
@@ -9,7 +9,7 @@ tags:
   - Docker
 ---
 
-### In this installment of 0 to Cloud I'll be walking through some simple steps you can take to increase the flexibility of your pipelines 
+### In unit 3 of 0 to Cloud I'll be looking at some simple steps that can increase the flexibility of your pipelines 
 
 # Unit 3:
 ## Pipeline flexibility

@@ -1,5 +1,5 @@
 ---
-title: 'Pipeline 0-to-Cloud (Introduction to Nextflow)'
+title: '2.)Pipeline 0-to-Cloud (Introduction to Nextflow)'
 date: 2024-01-29
 permalink: /posts/2024/01/Nextflow-Intro/
 tags:
