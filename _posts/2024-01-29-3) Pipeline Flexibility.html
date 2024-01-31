@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 
 <html>
 
@@ -10,9 +10,8 @@
 
 
 
-<meta name="date" content="2024-01-29" />
 
-<title>3.)Pipeline 0-to-Cloud (Pipeline flexibility)</title>
+<title>2024-01-29-pipe-2-flexibility</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,31 +348,28 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">3.)Pipeline 0-to-Cloud (Pipeline
-flexibility)</h1>
-<h4 class="date">2024-01-29</h4>
 
 </div>
 
 
-<div id="in-unit-3-of-0-to-cloud-ill-be-looking-at-some-simple-steps-that-can-increase-the-flexibility-of-your-pipelines" class="section level3">
-<h3>In unit 3 of 0 to Cloud I’ll be looking at some simple steps that
-can increase the flexibility of your pipelines</h3>
-</div>
 <div id="unit-3" class="section level1">
 <h1>Unit 3:</h1>
 <div id="pipeline-flexibility" class="section level2">
 <h2>Pipeline flexibility</h2>
+<blockquote>
+<p>In unit 3 of 0-to-Cloud I’ll be looking at some simple steps that can
+increase the flexibility of your pipelines</p>
+</blockquote>
 <p>As you can probably see from the unit title above, the focus of this
 module will be on pipeline flexibility. This is a general topic but I am
 going to treat it very specifically here and, admittedly, a major
 motivator for kicking this into its own module was because I didn’t want
-to introduce general Nextflow and the scary code jargon that come with
-the flexibility achieved in parameter and variable definition all in one
-module. So since you’ve now got your feet wet in Nextflow it’s time to
-talk about the low hanging fruit in making your code flexible enough to
-handle a variety of pipeline tasks and that is parameter and variable
-definitions.</p>
+to introduce general Nextflow and the <strong>scary code jargon</strong>
+that come with the flexibility achieved in parameter and variable
+definition all in one module. So since you’ve now got your feet wet in
+Nextflow it’s time to talk about the low hanging fruit: making your code
+flexible enough to handle a variety of pipeline tasks and that is
+parameter and variable definitions.</p>
 <p>For this we’re not actually going to start fully from scratch as I
 did quietly sneak in one variable in the previous module. In the process
 convertToUpper the script that runs is
@@ -387,60 +383,78 @@ variable name of <code>x</code> so that when the script calls
 defined in the input statement. We are going to expand on this now to
 make it so that the accession number in the pullNCBI process
 (GCF_000188115.5) does not need to be hardcoded so we gain the
-flexibility of changing it without having to make keystrokes/edits in
-the important script blocks of our processes.</p>
+flexibility of changing it (being able to supply different accession
+numbers) without having to make keystrokes/edits in the important script
+blocks of our processes.</p>
 <p>The way that I do this is to add this parameter to the first line of
 the script:</p>
 <pre><code>params.input = &#39;GCF_000188115.5&#39;</code></pre>
-<p>I have now defined a parameter called input and given it a value of
-the accession number we want the ncbi datasets to query metadata from.
-At this point in time I could modify the script in the first process to
-be the same except for changing the hardcoded GCF_000188115.5 to instead
-call my parameter with ‘${params.input}’ and things should run similar
-to before. I’m going to go a bit further and have the variable parameter
-input follow my objects as their name. This way when I complete I will
-have a final file called GCF_000188115.5.info. Why am I doing this? The
-reason is that I am preparing to run this script on more than just the
-accession number for tomato and want to avoid having N parallel
-processes all returning a file unhelpfully called
+<p>I have now defined a parameter called input and I have given it a
+value of the accession number we want the ncbi datasets to query
+metadata from. At this point in time I could modify the script in the
+first process to be the same except for changing the hardcoded
+GCF_000188115.5 to instead call my parameter with
+<code>&#39;${params.input}&#39;</code> and things should run similar to
+before.</p>
+<p>I’m going to go a bit further and have the variable parameter input
+follow my objects as their name. This way when I complete I will have a
+final file called <code>GCF_000188115.5.info</code>.</p>
+<div id="why-am-i-doing-this" class="section level3">
+<h3>Why am I doing this?</h3>
+<p>The reason is that I am preparing to run this script on more than
+just the accession number for tomato and want to avoid having <mark>N
+parallel processes</mark> all returning a file unhelpfully called
 <code>tomato.info</code>. It may seem a bit tedious to track the
 parameter through all the inputs and outputs in your pipeline, and by
 all means you can get by quite well without doing it, but I prefer to
-keep things orderly so if I have to dig around in intermediate files of
-a highly parallelized script I’ll be working with something more
-informative than <code>foo</code> or <code>junk1</code> and
-<code>junk2</code>.</p>
-<p>Ok so what does explicating the naming entail? We can start by
-renaming the output of the first script to be
-<code>${params.input}.metadata</code> instead of tomat.metadata So now
-our completed script for the pullNCBI process looks like:</p>
+keep things orderly.</p>
+<blockquote>
+<p>Basically, if I have to dig around in intermediate files of a highly
+parallelized script I’ll be working with something more informative than
+<code>foo</code> or <code>junk1</code> and <code>junk2</code>.</p>
+</blockquote>
+</div>
+<div id="ok-so-what-does-all-this-entail" class="section level3">
+<h3>Ok so what does all this entail?</h3>
+<p>We can start by renaming the output of the first script to be
+<code>${params.input}.metadata</code> instead of
+<code>tomat.metadata</code> So now our completed script for the pullNCBI
+process looks like:</p>
 <pre><code>datasets summary genome accession &#39;${params.input}&#39; &gt; ${params.input}.metadata</code></pre>
-<p>This means that our output statement for the pullNCBI process is no
-longer valid so we then change that to:</p>
+<p>This also means that our output statement for the pullNCBI process is
+no longer valid so we then change that to:</p>
 <pre><code>    output:
     path &quot;${params.input}.metadata&quot;</code></pre>
-<p>That should wrap up the first process. In the second process the
-input statement is still correct, as it already defined a variable that
-was read by the script. The file name of what is output from the script
-does not need to be called tomat.info anymore and can be changed to
-<code>${params.input}.info</code> (I hope you are picking up the pattern
-here that within the curly brackets will be the accession and that I’m
-appending a postfix will read as .info in this case, this is a handy way
-of making sure you don’t end up with a bunch of intermediate files and
-results files called GCF_000188115.5). And since we’ve changed what we
-are calling the thing that gets output by the script we need to make
-sure the output matches that and to do that we change that to this:</p>
+</div>
+<div id="that-should-wrap-up-the-first-process-on-to-the-next" class="section level3">
+<h3>That should wrap up the first process, on to the next</h3>
+<p>In the second process the input statement is still correct, as it
+already defined a variable that was read by the script. The file name of
+what is output from the script does not need to be called
+<code>tomat.info</code> anymore and can be changed to
+<code>${params.input}.info</code></p>
+<blockquote>
+<p>(I hope you are picking up the pattern here that within the curly
+brackets will be the accession and that I’m appending a postfix (.info),
+this is a handy way of making sure you don’t end up with a bunch of
+intermediate files and results files called GCF_000188115.5).</p>
+</blockquote>
+<p>Since we’ve changed what we are calling the thing that gets output by
+the script we need to make sure the output matches that and to do that
+we change that to this:</p>
 <pre><code>    output:
     file(&quot;${params.input}.info&quot;)</code></pre>
 <p>Since we’re already working on general pipeline hygiene and tidyness
 I’m also going to go ahead a specify that I don’t want the output file
 to end up in some arbitrarily named folder for me to fish out later but
-instead I would like it to go just by itself into the work directory
-where I can find it easier. To do that I’m going to define a publishDir
-(publish directory) in the convertToUpper process and that is going to
-look like this: publishDir ‘./work/’, mode: ‘move’ And that should tell
-the process that I want the output in the <code>./work</code> folder and
-that I want it moved there, not symlinked.</p>
+instead I would like it to go just by itself into the <code>work</code>
+directory where I can find it easier. To do that I’m going to define a
+<mark>publishDir</mark> (publish directory) in the convertToUpper
+process and that is going to look like this:</p>
+<pre><code>publishDir &#39;./work/&#39;, mode: &#39;move&#39;</code></pre>
+<p>And that should tell the process that I want the output in the
+<code>./work</code> folder and that I want it moved there, not
+symlinked.</p>
 <p>Altogether the code then looks like:</p>
 <pre><code>params.input = &#39;GCF_000188115.5&#39;
 
@@ -475,33 +489,44 @@ workflow {
 structure is still the same, we’re just a bit more flexible with how we
 handle inputs.</p>
 <p>Hopefully that can run for you like it did for me.</p>
+<p>As with the last entry, I’ve parked this code in a github repo <a href="https://github.com/danjgates/pipeFlexibility">here</a>.</p>
+</div>
+<div id="a-final-point-that-i-think-might-be-important" class="section level3">
+<h3>A final point (that I think might be important)</h3>
 <p>The final point related to flexibility that I must touch on is that
 parameters are really flexibility multipliers. The astute reader will
 notice that the current manifestation of the code requires you to go in
-and change that params.input on the first line by hand if you want a
-different accession. That parameter doesn’t need to be defined there,
-however, and you could instead define all your parameters in a
-nextflow.config file instead. That would allow you to truly keep all the
-things you want the flexibility to alter out of your actual pipeline
-code, again reducing the edits and keystrokes that need to happen in
-important code. And if we want to talk about even more flexibility, you
-can even call parameters from the command line when you run your
-nextflow script. When I remove that first line defining the parameter
-params.input from the script completely and then run nextflow as:</p>
+and change that <code>params.input</code> on the first line by hand if
+you want a different accession. That parameter doesn’t need to be
+defined there, however, and you could instead define all your parameters
+in a <code>nextflow.config</code> file instead. That would allow you to
+truly keep all the things you want the flexibility to alter out of your
+actual pipeline code, again reducing the edits and keystrokes that need
+to happen in important code. And if we want to talk about even more
+flexibility, you can even call parameters from the command line when you
+run your Nextflow script. When I remove that first line defining the
+parameter <code>params.input</code> from the script completely and then
+run Nextflow as:</p>
 <pre class="console"><code>foo@bar:~$ nextflow run main.nf --input &#39;GCF_000226075.1&#39;</code></pre>
-<p>it completes successfully because it knows that the –input flag means
+<p>It completes successfully because it knows that the –input flag means
 it should make a parameter called params.input and the value assigned to
-it should be the trailing text (GCF_000226075.1). Pretty neat huh?!
-Although I still favor parameters going in a nextflow.config file as
-once you hit more than 5 or so parameters that becomes a lot of work to
-enter at the command line every time you want your scripts to run and
-it’s also nice having a document with all the important parameter values
-saved for your run so you don’t have to go dig up old executed commands
-if you have questions later on.</p>
+it should be the trailing text (GCF_000226075.1).</p>
+<blockquote>
+<p>Pretty neat huh?!</p>
+</blockquote>
+<p>Although I still favor parameters going in a
+<code>nextflow.config</code> file as once you hit more than 5 or so
+parameters that becomes a lot of work to enter at the command line every
+time you want your scripts to run and it’s also nice having a document
+with all the important parameter values saved for your run so you don’t
+have to go dig up old executed commands if you have questions later
+on.</p>
+</div>
 </div>
 </div>
 <div id="some-parting-thoughts" class="section level1">
 <h1>Some Parting Thoughts</h1>
+<blockquote>
 <p>Before we begin our next section I would like to highlight a few
 important high level points. Cynically you could say that all we did
 could be completed by a bash script and you would be mostly correct. In
@@ -541,6 +566,13 @@ the first process again. Again, this may seem trivial in a two process
 pipeline that completes nearly instantaneously but, in my experience, is
 another valuable source of flexibility as your pipelines become more
 complex.</p>
+</blockquote>
+<div id="that-concludes-my-thoughts-on-pipeline-variables-and-flexibility" class="section level3">
+<h3>That concludes my thoughts on pipeline variables and
+flexibility</h3>
+<p>Stay tuned for the next unit on containerization
+(<strong>DOCKER!!</strong>)</p>
+</div>
 </div>
 
 
