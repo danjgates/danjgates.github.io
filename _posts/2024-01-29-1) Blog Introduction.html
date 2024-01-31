@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 
 <html>
 
@@ -9,9 +10,8 @@
 
 
 
-<meta name="date" content="2024-01-29" />
 
-<title>1.)Pipeline 0-to-Cloud (Series Introduction)</title>
+<title>2024-01-29-intro</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,21 +348,12 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">1.)Pipeline 0-to-Cloud (Series
-Introduction)</h1>
-<h4 class="date">2024-01-29</h4>
 
 </div>
 
 
-<div id="to-cloud-is-my-take-on-how-to-get-a-simple-pipeline-that-you-can-execute-locally-up-and-working-on-the-cloud.-i-hope-to-highlight-areas-that-i-think-will-add-flexibility-scalability-and-economy-to-your-pipelines." class="section level3">
-<h3>0 to Cloud is my take on how to get a simple pipeline that you can
-execute locally up and working on the cloud. I hope to highlight areas
-that I think will add flexibility, scalability, and economy to your
-pipelines.</h3>
-</div>
-<div id="welcome-to-the-blog" class="section level1">
-<h1>Welcome to the blog!</h1>
+<div id="welcome-to-the-0-to-cloud-blog" class="section level1">
+<h1>Welcome to the 0-to-Cloud blog!</h1>
 <div id="first-a-message-from-the-author" class="section level3">
 <h3>First a message from the author:</h3>
 <blockquote>
@@ -414,45 +405,61 @@ execute this task on the command line of your local computer it would
 look like something this:</p>
 <pre class="console"><code>foo@bar:~$ datasets summary genome accession GCF_000188115.5  &gt; tomato.metadata</code></pre>
 <p>This would take the tomato accession number (GCF_000188115.5) and
-produce a file containing metadata of the assembly (tomato.metadata).
-The second task is simply take the output of the previous task
-(tomato.metadata) and convert the entire file to upper case and would
-look like this if you were to execute it on the command line of a linux
-system:</p>
+produce a file containing metadata of the assembly
+(<code>tomato.metadata</code>). The second task is simply take the
+output of the previous task (<code>tomato.metadata</code>) and convert
+the entire file to upper case and would look like this if you were to
+execute it on the command line of a linux system:</p>
 <pre class="console"><code>foo@bar:~$ cat tomato.metadata | tr &#39;[a-z]&#39; &#39;[A-Z]&#39; &gt; tomato.metadata.upper</code></pre>
 <div id="why-this-code" class="section level3">
 <h3>Why this code?</h3>
 <p>I’m not sure exactly why anyone would need to complete this specific
 task but it does accomplish a few things that will be helpful to
-illustrating how pipelines in the cloud operate. First, it contains
-multiple commands that depend upon one another i.e. a file produced by
-the first command becomes the input for the second command. This is a
-core feature or most bioinformatic pipelines and will help to illustrate
-the sort of utility that will let you develop more involved pipelines
-that may have dozens or more commands with varying levels of
-interdependence. There are tasks that do not require multiple steps with
-input/output interdependence but these single step tasks can often be
-more directly addressed by requisitioning a cloud computer like an ec2,
-tunneling in, and simply running the task without having to put in the
-extra work and abstracting your objectives through a pipeline
-framework.</p>
-<p>The second core feature of our little vignette code is that it
-requires the existence of a piece of software (ncbi datasets) that is
-not typically found preinstalled on a clean linux system again like you
-could get from spooling up an ec2 instance. Thus, to complete our
-objective we will have to figure out a way to ensure that when our
-important code gets run that it also knows where to access that critical
-piece of software. This is a very important step to building
-bioinformatic pipeline with more steps that often require talking to
-more bespoke software. Additionally, at our ending point our code will
-be scalable in that it could handle 100 accession numbers and, if you
-were so inclined to spend the coin, the code to process those 100
-accession numbers could be run simultaneously on 100 separate machines
-in complete parallel. Hopefully you can see how a building our pipeline
-in a manner that allows us to explicitly automate the task of managing
-the software will save you greatly because you will not have to log into
-100+ different machines and install your favorite software by hand in
-order to reap the parallelization benefits of working on the cloud.</p>
+illustrating how pipelines in the cloud operate.</p>
+<ol style="list-style-type: decimal">
+<li><dl>
+<dt>It contains multiple commands that depend upon one another</dt>
+<dd>
+– i.e. a file produced by the first command becomes the input for the
+second command.
+</dd>
+<dd>
+– This is a core feature or most bioinformatic pipelines and will help
+to illustrate the sort of utility that will let you develop more
+involved pipelines that may have dozens or more commands with varying
+levels of interdependence.
+</dd>
+<dd>
+– There are tasks that do not require multiple steps with input/output
+interdependence but these single step tasks can often be more directly
+addressed by requisitioning a cloud computer like an ec2, tunneling in,
+and simply running the task without having to put in the extra work and
+abstracting your objectives through a pipeline framework.
+</dd>
+</dl></li>
+<li><dl>
+<dt>It requires the existence of a piece of software (ncbi
+datasets)</dt>
+<dd>
+– Again, that is not typically found preinstalled on a clean linux
+system like you could get from spooling up an ec2 instance.
+</dd>
+</dl></li>
+</ol>
+<p>Thus, to complete our objective we will have to figure out a way to
+ensure that when our important code gets run that it also knows where to
+access that critical piece of software. This is <mark>very
+important</mark> when building bioinformatic pipelines with more steps
+and that require compatibility with more bespoke software. Additionally,
+at our ending point our code will be <mark>scalable</mark> in that it
+could handle 100s of accession numbers and, if you were so inclined to
+spend the coin, the code to process those 100 accession numbers could be
+run simultaneously on 100 separate machines in complete parallel.</p>
+<p>Hopefully you can see how a building our pipeline in a manner that
+allows us to explicitly automate the task of managing the software will
+save you greatly because you will not have to log into 100+ different
+machines and install your favorite software by hand in order to reap the
+parallelization benefits of working on the cloud.</p>
 </div>
 <div id="one-final-message-from-the-author" class="section level3">
 <h3>One final message from the author:</h3>
@@ -484,7 +491,7 @@ that let me incorporate other flavors of pipeline elements.</p>
 </div>
 <div id="this-concludes-my-overall-thoughts-on-the-blog" class="section level3">
 <h3>This concludes my overall thoughts on the blog</h3>
-<p>See the next entry in our journey here</p>
+<p>Stay tuned for more additions</p>
 </div>
 </div>
 </div>
