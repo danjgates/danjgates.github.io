@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
 
 <head>
@@ -411,41 +409,32 @@ output of the previous task (<code>tomato.metadata</code>) and convert
 the entire file to upper case and would look like this if you were to
 execute it on the command line of a linux system:</p>
 <pre class="console"><code>foo@bar:~$ cat tomato.metadata | tr &#39;[a-z]&#39; &#39;[A-Z]&#39; &gt; tomato.metadata.upper</code></pre>
-<div id="why-this-code" class="section level3">
-<h3>Why this code?</h3>
+</div>
+<div id="why-this-code" class="section level2">
+<h2>Why this code?</h2>
 <p>I’m not sure exactly why anyone would need to complete this specific
 task but it does accomplish a few things that will be helpful to
 illustrating how pipelines in the cloud operate.</p>
-<ol style="list-style-type: decimal">
-<li><dl>
-<dt>It contains multiple commands that depend upon one another</dt>
-<dd>
-– i.e. a file produced by the first command becomes the input for the
-second command.
-</dd>
-<dd>
-– This is a core feature or most bioinformatic pipelines and will help
-to illustrate the sort of utility that will let you develop more
+<div id="it-contains-multiple-commands-that-depend-upon-one-another" class="section level3">
+<h3>1. It contains multiple commands that depend upon one another</h3>
+<p>– i.e. a file produced by the first command becomes the input for the
+second command.</p>
+<p>– This is a core feature or most bioinformatic pipelines and will
+help to illustrate the sort of utility that will let you develop more
 involved pipelines that may have dozens or more commands with varying
-levels of interdependence.
-</dd>
-<dd>
-– There are tasks that do not require multiple steps with input/output
-interdependence but these single step tasks can often be more directly
-addressed by requisitioning a cloud computer like an ec2, tunneling in,
-and simply running the task without having to put in the extra work and
-abstracting your objectives through a pipeline framework.
-</dd>
-</dl></li>
-<li><dl>
-<dt>It requires the existence of a piece of software (ncbi
-datasets)</dt>
-<dd>
-– Again, that is not typically found preinstalled on a clean linux
-system like you could get from spooling up an ec2 instance.
-</dd>
-</dl></li>
-</ol>
+levels of interdependence.</p>
+<p>– There are tasks that do not require multiple steps with
+input/output interdependence but these single step tasks can often be
+more directly addressed by requisitioning a cloud computer like an ec2,
+tunneling in, and simply running the task without having to put in the
+extra work and abstracting your objectives through a pipeline
+framework.</p>
+</div>
+<div id="it-requires-the-existence-of-a-piece-of-software-ncbi-datasets" class="section level3">
+<h3>2. It requires the existence of a piece of software (ncbi
+datasets)</h3>
+<p>– Again, that is not typically found preinstalled on a clean linux
+system like you could get from spooling up an ec2 instance.</p>
 <p>Thus, to complete our objective we will have to figure out a way to
 ensure that when our important code gets run that it also knows where to
 access that critical piece of software. This is <mark>very
