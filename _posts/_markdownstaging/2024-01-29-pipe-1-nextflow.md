@@ -1,15 +1,3 @@
----
-title: '2.)Pipeline 0-to-Cloud (Introduction to Nextflow)'
-date: 2024-01-29
-permalink: /posts/2024/01/Nextflow-Intro/
-tags:
-  - Pipeline
-  - Nextflow
-  - Cloud
-  - Docker
----
-
-### In the first installment of 0 to Cloud I'll be walking through the basics of turning simple commands into a Nextflow pipeline
 
 # Unit 2:
 
@@ -17,7 +5,7 @@ tags:
 
 ### To recap 
 
-In unit 1 I outlined what the core code of this vignette will consist of and gave a few lines of commands that I would enter into the command line of a linux system in order to run the code from start to finish.
+>In unit 1 I outlined what the core code of this vignette will consist of and gave a few lines of commands that I would enter into the command line of a linux system in order to run the code from start to finish.
 Since our objectives here are not to run the code a single time on a local computer, this post will be walking through the first step to uplifting some code into and effective cloud environment. 
 Specifically, we will be looking at adding a pipeline format that will allow our code to be run by the pipeline software nextflow.
 
@@ -25,13 +13,19 @@ Specifically, we will be looking at adding a pipeline format that will allow our
 
 To begin with Nextflow we can start by breaking our code into the two important bits.
 The first important bit, the part that reads in the tomato accession number and returns metadata will be the first step in our pipeline.
-In a nextflow this is what's called a script and scripts are delineated by (among other ways) three quotation marks on the line before and the line after the process block.
+In a Nextflow this is what's called a <mark>script</mark> and scripts are delineated by (among other ways) three quotation marks on the line before and the line after the process block.
 We only have one command, on a single line so our script will look like a line with three quotation marks, our code that we want to run, and then another line with three quotations.
 
 >In Nextflow, scripts are organized within processes, which are sort of the fundamental unit of a nextflow script; like a paragraph in an essay.
 
-To run our script we need to package it within a process.
-Strictly speaking we need a name for our process, a curly open bracket, a script to run, and then a curly closed bracket.
+To run our script we need to package it within a <mark>process</mark>.
+Strictly speaking we need: 
+
+1. a name for our process 
+2. a curly open bracket 
+3. a script to run
+4. a curly closed bracket.
+
 So our simplest version of our first command looks like:
 
 ```
@@ -43,7 +37,7 @@ process pullNCBI {
 ```
 
 This is correct in terms of Nextflow syntax but not sufficient for our overall purpose because we want what is produced here to be passed to our next step.
-To make this happen we add an output block to our process which looks like this:
+To make this happen we add an <mark>output block</mark> to our process which looks like this:
 
 ```
 process pullNCBI {
@@ -69,10 +63,10 @@ process convertToUpper {
 }
 ```
 
-As with our earlier process, this is technically correct and would work if you ran it in isolation in a directory where a file named tomato.metadata lives but won't achieve our objective because we don't specify that tomato.metadata isn't a file that already exists in the place where it looks for files and is instead the output of the above process.
+As with our earlier process, this is technically correct and would work if you ran it in isolation in a directory where a file named `tomato.metadata` lives but won't achieve our objective because we don't specify that `tomato.metadata` isn't a file that already exists in the place where it looks for files and is instead the output of the above process.
 We fix this by supplying an input block.
 The input block follows a similar format as the output block that we used earlier.
-Here I will just define the input as the variable x and now our finished second pipeline step becomes:
+Here I will just define the input as the variable `x` and now our finished second pipeline step becomes:
 
 ```
 process convertToUpper {
@@ -86,9 +80,11 @@ process convertToUpper {
 }
 ```
 
-The final ingredient in this little pipeline jambalya we're making here is the workflow block.
+The final ingredient in this little pipeline jambalya we're making here is the <mark>workflow</mark> block.
 The two process blocks contain all the requisite information to run the scripts within them but do not contain the information required to know what process, if any, should feed into any other process.
-Basically, the workflow block acts as a navigation for how we want Nextflow to run our otherwise independent processes.
+
+>Basically, the workflow block acts as a navigation for how we want Nextflow to run our otherwise independent processes.
+
 In our case we want process pullNCBI to hand its output over as input for the process convertToUpper so our workflow block looks like:
 
 ```
@@ -133,9 +129,9 @@ foo@bar:~$ nextflow run main.nf
 ```
 
 
-I have also saved the pipeline in a github here.
+I have also saved the pipeline in a github [here](https://github.com/danjgates/pipeIntro).
 Nextflow has very nice integration with github in that it will natively search for github repos without requiring a bunch of fancy arguments.
-The only customization I do is because I have my github project set to main, and Nextflow's default looks for the branch "master" so I reconcile this with the -r flag ("-r main") but the command to run the nextflow script from my github is:
+The only customization I do is because I have my github project set to main, and Nextflow's default looks for the branch "master" so I reconcile this with the -r flag ("-r main") but the command to run the Nextflow script from my github is:
 
 ```console
 foo@bar:~$ nextflow run danjgates/pipeIntro -r main
@@ -159,6 +155,7 @@ The first line that shows the version is self explanatory.
 The second shows the file that was just run and the third line tells you that Nextflow used the local executor (as opposed to a cluster like you might find in a high performance computing cluster or through a cloud system like AWS Batch that we'll explore later).
 The fourth and the fifth lines show the processes that are being run in the order they are running.
 Our script runs pretty fast but you should see these update in real time as Nextflow is running.
+
 Another important piece of information from these lines is found in the brackets.
 If you didn't notice, assuming you were running the Nextflow commands I gave above, there was a new directory created called `work`.
 If you were to open this work directory after this run completed there would be two directories called `dd` and `af` and within each there would be another directory (`15d10e` would be in `dd` and `e36cb4` would be found in `af`).
@@ -167,6 +164,4 @@ The `af/e36cb4` folder is also where our final results and sure enough when I na
 
 ### This concludes our initial foray into the world of pipelines.
 
-See the next entry in our journey here
-
-Go back and review the previous entry in this series here
+Stay tuned for more additions!
