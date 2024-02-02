@@ -5,7 +5,7 @@ permalink: /publication/2022-An-adaptive-teosinte
 excerpt: 'A really elegant look from genotype to phenotype of a crop adaptive locus'
 date: 2022-06-01
 venue: 'PNAS'
-paperurl: 'http://danjgates.github.io/files/paper1.pdf'
+paperurl: 'http://danjgates.github.io/files/barnes-et-al-2022.pdf'
 citation: 'Barnes, A.C., Rodríguez-Zapata, F., Juárez-Núñez, K.A., Gates, D.J., Janzen, G.M., Kur, A., Wang, L., Jensen, S.E., Estévez-Palmas, J.M., Crow, T.M. and Kavi, H.S., 2022. An adaptive teosinte mexicana introgression modulates phosphatidylcholine levels and is associated with maize flowering time. <i> Proceedings of the National Academy of Sciences </i>, 119(27), p.e2100036119.'
 ---
 
