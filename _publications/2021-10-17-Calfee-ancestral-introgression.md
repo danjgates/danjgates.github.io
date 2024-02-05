@@ -1,5 +1,5 @@
 ---
-title: "Paper Title Number 2"
+title: "Selective sorting of ancestral introgression in maize and teosinte along an elevational cline."
 collection: publications
 permalink: /publication/2010-10-01-paper-title-number-2
 excerpt: 'A wonderful study documenting how replicated sampling from sympatric species along a cline can tease out repeatable patterns of introgression and adaptation, '
