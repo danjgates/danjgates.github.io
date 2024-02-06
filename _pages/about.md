@@ -15,8 +15,11 @@ Current and future plans for this site
 ======
 1. Check out the blog page for a multipart guide on how I approach running pipelines in the cloud (in progress)
 1. Watch for future blog posts about creation and cloud deployment of dashboards with Python Dash and AWS EBS and possibly a short blog on tools for designer protein hallucination
-1. Visit the publications tab for some highlights of projects I've been worked on in the past 
-1. Check out my full publications list in the scholar link on the sidebar and follow or send me a message on LinkedIn
+
+
+Visit the publications tab for some highlights of projects I've been worked on in the past 
+
+And don't forget to heck out my full publications list in the Scholar sidebar link and follow or send me a message on LinkedIn
 
 
 For more info about this page
