@@ -21,9 +21,7 @@ Visit the publications tab for some highlights of projects I've been worked on i
 ------
 
 And don't forget to check out my full publications list in the Scholar sidebar link and follow or send me a message on LinkedIn
-======
-
- 
 ------
+
 For more info about this page:
 This was built from a fork of academicpages. For more info about configuring academicpages can be found in [the guide](https://academicpages.github.io/markdown/). The [guides for the Minimal Mistakes theme](https://mmistakes.github.io/minimal-mistakes/docs/configuration/) (which this theme was forked from) might also be helpful.
